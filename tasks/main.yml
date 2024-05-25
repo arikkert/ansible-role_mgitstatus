@@ -1,0 +1,24 @@
+---
+# tasks file for ansible-role_mgitstatus
+
+- name: Ensure mgitstatus is installed
+  ansible.builtin.copy:
+    src: mgitstatus
+    dest: "{{ bindir }}/"
+    mode: '0755'
+
+- name: Ensure mgitstatus manpage is installed
+  ansible.builtin.copy:
+    src: mgitstatus.1.gz
+    dest: "{{ man1dir }}/"
+    mode: '0644'
+
+- name: Ensure mgitstatus version is determined
+  ansible.builtin.command: "{{ bindir }}/mgitstatus --version"
+  register: mgitstatus_version
+  changed_when: false
+  check_mode: false
+
+- name: Ensure mgitstatus version is shown
+  ansible.builtin.debug:
+    msg: "{{ mgitstatus_version.stdout.split('\n') }}"

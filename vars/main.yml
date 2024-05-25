@@ -1,0 +1,6 @@
+---
+# vars file for ansible-role_mgitstatus
+
+# Seems same for all OS releases ..
+bindir: "{{ '/usr/local/bin' if ansible_os_family == 'RedHat' else '/usr/local/bin' }}"
+man1dir: "{{ '/usr/share/man/man1' if ansible_os_family == 'RedHat' else '/usr/share/man/man1' }}"
